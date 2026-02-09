@@ -1,0 +1,47 @@
+/* src/css/comments.css */
+
+/* ----------------- Comment List Container ----------------- */
+.comment-list-container {
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* subtle shadow like tasks/projects */
+}
+
+/* Comment List Title */
+.comment-list-title {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: #1e1e2f;
+  font-weight: bold;
+}
+
+/* Empty comment placeholder */
+.comment-empty {
+  color: #555;
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+/* Comment List Items */
+.comment-list {
+  list-style: none;
+  padding: 0;
+}
+
+.comment-item {
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid #eee;
+  color: #333;
+  border-radius: 4px; /* subtle rounding for individual comments */
+  background: #f9f9f9;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .comment-list-container {
+    padding: 1rem;
+  }
+}

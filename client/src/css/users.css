@@ -1,0 +1,16 @@
+/* src/css/users.css */
+.user-profile-container {
+  padding: 1rem;
+  background: #fff;
+  border-radius: 8px;
+}
+
+.user-profile-container h2 {
+  margin-bottom: 0.5rem;
+  color: #1e1e2f;
+}
+
+.user-profile-container p {
+  margin-bottom: 0.25rem;
+  color: #555;
+}

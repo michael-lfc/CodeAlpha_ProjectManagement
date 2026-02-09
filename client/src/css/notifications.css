@@ -1,0 +1,47 @@
+/* src/css/notification.css */
+
+/* ----------------- Notification Container ----------------- */
+.notification-container {
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* subtle shadow for consistency */
+}
+
+/* Notification Title */
+.notification-title {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: #1e1e2f;
+  font-weight: bold;
+}
+
+/* Empty notification placeholder */
+.notification-empty {
+  color: #555;
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+/* Notification List */
+.notification-list {
+  list-style: none;
+  padding: 0;
+}
+
+.notification-item {
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid #eee;
+  color: #333;
+  border-radius: 4px; /* subtle rounding for each notification */
+  background: #f9f9f9; /* card-like background for consistency */
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .notification-container {
+    padding: 1rem;
+  }
+}

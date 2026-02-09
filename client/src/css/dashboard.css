@@ -1,0 +1,72 @@
+/* src/css/dashboard.css */
+
+/* ----------------- Layout ----------------- */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  font-family: Arial, sans-serif; /* Ensure consistent font across dashboard */
+  background: #f5f5f5;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background-color: #1e1e2f;
+  color: white;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.sidebar h2 {
+  margin-bottom: 2rem;
+  font-size: 1.4rem;
+  color: #fff;
+  text-align: center;
+}
+
+.sidebar a {
+  display: block;
+  padding: 0.75rem 0;
+  color: white;
+  text-decoration: none;
+  transition: background 0.2s ease, opacity 0.2s ease;
+}
+
+.sidebar a:hover {
+  background-color: #35355c;
+  opacity: 0.9;
+  border-radius: 4px;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+}
+
+/* ----------------- Project & Task Grid ----------------- */
+.projects-container,
+.tasks-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .projects-container,
+  .tasks-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .projects-container,
+  .tasks-container {
+    grid-template-columns: 1fr;
+  }
+}
