@@ -1,10 +1,10 @@
-# CodeAlpha Ecommerce App
+# CodeAlpha Project Management
 
 ## Overview
-This is a **full-stack ecommerce application** built during my Full Stack Software Engineering learning journey.  
+This is a **full-stack project management application** built during my Full Stack Software Engineering training.  
 
 - The **backend is fully functional**, including authentication, project management, and WebSocket notifications.  
-- The **frontend is partially implemented** and currently experiencing some issues due to API integration and state management errors, causing blank pages on certain routes.
+- The **frontend is partially implemented** and currently experiencing some issues due to API integration and state management errors, which can result in blank pages on certain routes.
 
 ---
 
@@ -19,7 +19,7 @@ This is a **full-stack ecommerce application** built during my Full Stack Softwa
 
 ## Frontend Status & Challenges
 - The frontend uses React with Context API for state management.
-- **Issues faced during development:**
+- **Challenges faced during development:**
   - Blank pages on dashboard and project routes
   - Errors in API calls from React due to incorrect axios imports or token handling
   - Authentication state sometimes not initializing properly, causing navigation issues
@@ -40,4 +40,4 @@ This is a **full-stack ecommerce application** built during my Full Stack Softwa
 ## Running Locally
 1. Clone the repository:
    ```bash
-   git clone https://github.com/<your-username>/<repo-name>.git
+   git clone https://github.com/michael-lfc/CodeAlpha_ProjectManagement.git
