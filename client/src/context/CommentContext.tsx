@@ -1,32 +1,30 @@
-import { createContext, useContext, useState } from "react";
-import type { ReactNode } from "react";
+import { createContext, useContext, useState, type ReactNode } from "react";
 import type { Comment } from "../types/comment";
-import * as commentAPI from "../api/comment.api";
+import * as commentApi from "../services/comment.api";
 
 interface CommentContextType {
   comments: Comment[];
-  setComments: (comments: Comment[]) => void;
   fetchComments: (taskId: number) => Promise<void>;
   addComment: (taskId: number, content: string) => Promise<void>;
 }
 
-const CommentContext = createContext<CommentContextType | null>(null);
+const CommentContext = createContext<CommentContextType | undefined>(undefined);
 
 export const CommentProvider = ({ children }: { children: ReactNode }) => {
   const [comments, setComments] = useState<Comment[]>([]);
 
   const fetchComments = async (taskId: number) => {
-    const data = await commentAPI.fetchComments(taskId);
+    const data = await commentApi.getCommentsByTask(taskId);
     setComments(data);
   };
 
   const addComment = async (taskId: number, content: string) => {
-    const newComment = await commentAPI.addComment(taskId, content);
+    const newComment = await commentApi.createComment(taskId, content);
     setComments((prev) => [...prev, newComment]);
   };
 
   return (
-    <CommentContext.Provider value={{ comments, setComments, fetchComments, addComment }}>
+    <CommentContext.Provider value={{ comments, fetchComments, addComment }}>
       {children}
     </CommentContext.Provider>
   );
@@ -34,6 +32,6 @@ export const CommentProvider = ({ children }: { children: ReactNode }) => {
 
 export const useComments = () => {
   const context = useContext(CommentContext);
-  if (!context) throw new Error("useComments must be used within CommentProvider");
+  if (!context) throw new Error("useComments must be used within a CommentProvider");
   return context;
 };

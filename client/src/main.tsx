@@ -1,36 +1,30 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App";
+import "./index.css";
 
-// Context providers
+// Contexts
 import { AuthProvider } from "./context/AuthContext";
-import { ProjectProvider } from "./context/ProjectContext";
+import { ThemeProvider } from "./context/ThemeContext";
+import { NotificationProvider } from "./context/NotificationContext";
 import { TaskProvider } from "./context/TaskContext";
 import { CommentProvider } from "./context/CommentContext";
-import { NotificationProvider } from "./context/NotificationContext";
 
-// CSS imports
-import "./css/global.css";
-import "./css/auth.css";
-import "./css/dashboard.css";
-import "./css/projects.css";
-import "./css/tasks.css";
-import "./css/comments.css";
-import "./css/Notifications.css";
-import "./css/users.css";
-
-ReactDOM.createRoot(document.getElementById("root")!).render(
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <AuthProvider>
-      <ProjectProvider>
-        <TaskProvider>
-          <CommentProvider>
-            <NotificationProvider>
-              <App />
-            </NotificationProvider>
-          </CommentProvider>
-        </TaskProvider>
-      </ProjectProvider>
-    </AuthProvider>
+    <BrowserRouter>
+      <ThemeProvider>
+        <AuthProvider>
+          <NotificationProvider>
+            <TaskProvider>
+              <CommentProvider>
+                <App />
+              </CommentProvider>
+            </TaskProvider>
+          </NotificationProvider>
+        </AuthProvider>
+      </ThemeProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );

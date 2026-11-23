@@ -1,40 +1,77 @@
-import { createContext, useContext, useState } from "react";
-import type { ReactNode } from "react";
-import type { Notification } from "../types/notification";
-import * as notificationAPI from "../api/notification.api";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
+import api from "../services/api";
+import { connectSocket, disconnectSocket } from "../services/socket";
+import { useAuth } from "./AuthContext";
+
+export interface Notification {
+  id: number;
+  message: string;
+  read: boolean;
+  createdAt: string;
+  link?: string;
+}
 
 interface NotificationContextType {
   notifications: Notification[];
-  fetchNotifications: () => Promise<void>;
-  markAsRead: (id: number) => Promise<void>;
+  unreadCount: number;
+  setNotifications: React.Dispatch<React.SetStateAction<Notification[]>>;
 }
 
-const NotificationContext = createContext<NotificationContextType | null>(null);
+const NotificationContext = createContext<NotificationContextType | undefined>(
+  undefined
+);
 
-export const NotificationProvider = ({ children }: { children: ReactNode }) => {
+export const NotificationProvider = ({
+  children,
+}: {
+  children: ReactNode;
+}) => {
+  const { user } = useAuth();
   const [notifications, setNotifications] = useState<Notification[]>([]);
 
-  const fetchNotifications = async () => {
-    const data = await notificationAPI.getNotifications();
-    setNotifications(data);
-  };
+  // 🔹 Fetch existing notifications
+  useEffect(() => {
+    if (!user) return;
 
-  const markAsRead = async (id: number) => {
-    const updated = await notificationAPI.markNotificationAsRead(id);
-    setNotifications((prev) =>
-      prev.map((n) => (n.id === id ? updated : n))
-    );
-  };
+    api.get("/notifications").then((res) => {
+      setNotifications(res.data.data.notifications);
+    });
+  }, [user]);
+
+  // 🔹 Socket real-time listener
+  useEffect(() => {
+    if (!user) return;
+
+    const socket = connectSocket(user.id);
+
+    socket.on("new-notification", (notification: Notification) => {
+      setNotifications((prev) => [notification, ...prev]);
+    });
+
+    return () => {
+      disconnectSocket();
+    };
+  }, [user]);
+
+  const unreadCount = notifications.filter((n) => !n.read).length;
 
   return (
-    <NotificationContext.Provider value={{ notifications, fetchNotifications, markAsRead }}>
+    <NotificationContext.Provider
+      value={{ notifications, unreadCount, setNotifications }}
+    >
       {children}
     </NotificationContext.Provider>
   );
 };
 
 export const useNotifications = () => {
-  const context = useContext(NotificationContext);
-  if (!context) throw new Error("useNotifications must be used within NotificationProvider");
-  return context;
+  const ctx = useContext(NotificationContext);
+  if (!ctx) throw new Error("useNotifications must be used inside provider");
+  return ctx;
 };
